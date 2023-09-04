@@ -1,7 +1,4 @@
-# EStore - PRN211 - Assignment 3
-
-## Setup
-In EStore folder, create `appsettings.json` with your database's username and password:
+appsettings.json
 ```
 {
   "Logging": {
@@ -16,7 +13,6 @@ In EStore folder, create `appsettings.json` with your database's username and pa
   }
 }
 ```
-Make sure `EStore.csproj` has the following lines:
 ```
 <ItemGroup>
   <None Update="appsettings.json">
