@@ -1,0 +1,89 @@
+﻿@model IEnumerable<BusinessObject.Order>
+
+@{
+    ViewData["Title"] = "Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Report</h1>
+
+<form asp-action="Report" method="get">
+    <label>From</label>
+    <input type="date" name="from" value="@ViewBag.From" />
+    <label>To</label>
+    <input type="date" name="to" value="@ViewBag.To" />
+    <input type="submit" value="Generate" class="btn btn-primary" />
+</form>
+<hr />
+
+<dl class="row">
+    <dt class="col-md-2">Orders</dt>
+    <dd class="col-md-10">
+        @ViewBag.Orders
+    </dd>
+    <dt class="col-md-2">Sold products</dt>
+    <dd class="col-md-10">
+        @ViewBag.SoldProducts
+    </dd>
+    <dt class="col-md-2">Customers</dt>
+    <dd class="col-md-10">
+        @ViewBag.Customers
+    </dd>
+    <dt class="col-md-2">Turnover</dt>
+    <dd class="col-md-10">
+        @ViewBag.Turnover
+    </dd>
+</dl>
+
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RequiredDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ShippedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Freight)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Member)
+                </th>
+                <th>OrderDetail</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RequiredDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ShippedDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Freight)
+                    </td>
+                    <td>
+                        <a asp-controller="Members" asp-action="Details" asp-route-id="@item.MemberId">
+                            @Html.DisplayFor(modelItem => item.Member.Email)
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-controller="OrderDetails" asp-action="Index" asp-route-orderId="@item.OrderId">View</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
